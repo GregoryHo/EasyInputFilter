@@ -1,11 +1,15 @@
 package com.ns.greg.library.easy_input_filter;
 
-import android.support.annotation.IntDef;
 import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.DEFAULT;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.DIGIT;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.IGNORE;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.LETTER;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.SPACE;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.SPECIFIC_CHARACTER;
 
 /**
  * Created by Gregory on 2017/5/4.
@@ -15,38 +19,11 @@ public class EasyInputFilter extends InputFilter.LengthFilter {
 
   private static final int DEFAULT_LENGTH = 8;
 
-  public static final int DEFAULT = 0;
-
-  public static final int LETTER = 1;
-
-  public static final int DIGIT = 1 << 1;
-
-  public static final int SPACE = 1 << 2;
-
-  public static final int SPECIFIC_CHARACTER = 1 << 3;
-
-  public static final int ALPHANUMERIC = LETTER | DIGIT | SPECIFIC_CHARACTER;
-
-  @IntDef(flag = true, value = { DEFAULT, LETTER, DIGIT, SPACE, SPECIFIC_CHARACTER, ALPHANUMERIC })
-  @Retention(RetentionPolicy.SOURCE) @interface FilterType {
-
-  }
-
-  public static final int IGNORE = 0;
-
-  public static final int LOWERCASE = 1;
-
-  public static final int CAPITAL = 2;
-
-  @IntDef({ IGNORE, LOWERCASE, CAPITAL }) @Retention(RetentionPolicy.SOURCE) @interface LetterType {
-
-  }
-
   private int filterType;
 
   private int letterType;
 
-  private EasyInputFilter(int max, @FilterType int filterType, @LetterType int letterType) {
+  private EasyInputFilter(int max, @FilterAnnotation.FilterType int filterType, @FilterAnnotation.LetterType int letterType) {
     super(max);
     this.filterType = filterType;
     this.letterType = letterType;
@@ -94,18 +71,37 @@ public class EasyInputFilter extends InputFilter.LengthFilter {
       case DIGIT:
         return InputFilterUtils.isDigit(currentChar);
 
+      case SPACE:
+        return InputFilterUtils.isSpaceCharacter(currentChar);
+
+      case SPECIFIC_CHARACTER:
+        return InputFilterUtils.isSpecificCharacter(currentChar);
+
       case (LETTER | DIGIT):
         return InputFilterUtils.isLetter(currentChar, letterType) || InputFilterUtils.isDigit(
+            currentChar);
+
+      case (LETTER | SPACE):
+        return InputFilterUtils.isLetter(currentChar, letterType)
+            || InputFilterUtils.isSpaceCharacter(currentChar);
+
+      case (LETTER | SPECIFIC_CHARACTER):
+        return InputFilterUtils.isLetter(currentChar, letterType)
+            || InputFilterUtils.isSpaceCharacter(currentChar);
+
+      case (DIGIT | SPACE):
+        return InputFilterUtils.isDigit(currentChar) || InputFilterUtils.isSpaceCharacter(
+            currentChar);
+
+      case (DIGIT | SPECIFIC_CHARACTER):
+        return InputFilterUtils.isDigit(currentChar) || InputFilterUtils.isSpaceCharacter(
             currentChar);
 
       case (LETTER | DIGIT | SPACE):
         return InputFilterUtils.isLetter(currentChar, letterType) || InputFilterUtils.isDigit(
             currentChar) || InputFilterUtils.isSpaceCharacter(currentChar);
 
-      case SPECIFIC_CHARACTER:
-        return InputFilterUtils.isSpecificCharacter(currentChar);
-
-      case ALPHANUMERIC:
+      case (LETTER | DIGIT | SPECIFIC_CHARACTER):
         return InputFilterUtils.isAlphanumeric(currentChar);
 
       default:
@@ -121,23 +117,19 @@ public class EasyInputFilter extends InputFilter.LengthFilter {
 
     private int letterType = IGNORE;
 
-    public Builder() {
-
-    }
-
     public Builder setMaxLength(int filterLength) {
       this.filterLength = filterLength;
 
       return this;
     }
 
-    public Builder setFilterType(@FilterType int filterType) {
+    public Builder setFilterType(@FilterAnnotation.FilterType int filterType) {
       this.filterType = filterType;
 
       return this;
     }
 
-    public Builder setLetterType(@LetterType int letterType) {
+    public Builder setLetterType(@FilterAnnotation.LetterType int letterType) {
       this.letterType = letterType;
 
       return this;

@@ -1,8 +1,8 @@
 package com.ns.greg.library.easy_input_filter;
 
-import static com.ns.greg.library.easy_input_filter.EasyInputFilter.CAPITAL;
-import static com.ns.greg.library.easy_input_filter.EasyInputFilter.IGNORE;
-import static com.ns.greg.library.easy_input_filter.EasyInputFilter.LOWERCASE;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.CAPITAL;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.IGNORE;
+import static com.ns.greg.library.easy_input_filter.FilterAnnotation.LOWERCASE;
 
 /**
  * Created by Gregory on 2017/5/4.
@@ -10,10 +10,10 @@ import static com.ns.greg.library.easy_input_filter.EasyInputFilter.LOWERCASE;
 
 public class InputFilterUtils {
 
-  static boolean isLetter(char c, @EasyInputFilter.LetterType int checkType) {
+  static boolean isLetter(char c, @FilterAnnotation.LetterType int letterType) {
     int code = (int) c;
 
-    switch (checkType) {
+    switch (letterType) {
       case IGNORE:
         return ('A' <= code && code <= 'Z') || ('a' <= code && code <= 'z');
 
@@ -56,15 +56,15 @@ public class InputFilterUtils {
 
   public static int getType(char c) {
     if (isLetter(c, IGNORE)) {
-      return EasyInputFilter.LETTER;
+      return FilterAnnotation.LETTER;
     }
 
     if (isDigit(c)) {
-      return EasyInputFilter.DIGIT;
+      return FilterAnnotation.DIGIT;
     }
 
     if (isSpecificCharacter(c)) {
-      return EasyInputFilter.SPECIFIC_CHARACTER;
+      return FilterAnnotation.SPECIFIC_CHARACTER;
     }
 
     return 0x0F;
