@@ -5,9 +5,9 @@ import static com.ns.greg.library.easy_input_filter.FilterAnnotation.IGNORE;
 import static com.ns.greg.library.easy_input_filter.FilterAnnotation.LOWERCASE;
 
 /**
- * Created by Gregory on 2017/5/4.
+ * @author Gregory
+ * @since 2017/5/4
  */
-
 public class InputFilterUtils {
 
   static boolean isLetter(char c, @FilterAnnotation.LetterType int letterType) {

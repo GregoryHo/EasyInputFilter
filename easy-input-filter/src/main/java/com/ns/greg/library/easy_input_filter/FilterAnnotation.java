@@ -8,7 +8,6 @@ import java.lang.annotation.RetentionPolicy;
  * @author Gregory
  * @since 2017/8/10
  */
-
 public class FilterAnnotation {
 
   public static final int DEFAULT = 0;

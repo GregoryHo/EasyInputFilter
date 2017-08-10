@@ -12,9 +12,9 @@ import static com.ns.greg.library.easy_input_filter.FilterAnnotation.SPACE;
 import static com.ns.greg.library.easy_input_filter.FilterAnnotation.SPECIFIC_CHARACTER;
 
 /**
- * Created by Gregory on 2017/5/4.
+ * @author Gregory
+ * @since 2017/5/4
  */
-
 public class EasyInputFilter extends InputFilter.LengthFilter {
 
   private static final int DEFAULT_LENGTH = 8;
