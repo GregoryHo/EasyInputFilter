@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.widget.EditText;
 import com.ns.greg.library.easy_input_filter.EasyInputFilter;
+import com.ns.greg.library.easy_input_filter.FilterAnnotation;
 
 /**
  * @author Gregory
@@ -19,24 +20,24 @@ public class DemoActivity extends AppCompatActivity {
     setContentView(R.layout.main_demo);
 
     ((EditText) findViewById(R.id.digit_et)).setFilters(new InputFilter[] {
-        new EasyInputFilter.Builder().setMaxLength(10).setFilterType(EasyInputFilter.DIGIT).build()
+        new EasyInputFilter.Builder().setMaxLength(10).setFilterType(FilterAnnotation.DIGIT).build()
     });
 
     ((EditText) findViewById(R.id.letter_lc_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(10)
-            .setFilterType(EasyInputFilter.LETTER)
-            .setLetterType(EasyInputFilter.LOWERCASE).build()
+            .setFilterType(FilterAnnotation.LETTER)
+            .setLetterType(FilterAnnotation.LOWERCASE).build()
     });
 
     ((EditText) findViewById(R.id.alphanumeric_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(20)
-            .setFilterType(EasyInputFilter.ALPHANUMERIC).build()
+            .setFilterType(FilterAnnotation.ALPHANUMERIC).build()
     });
 
     ((EditText) findViewById(R.id.custom_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(20)
             .setFilterType(
-                EasyInputFilter.DIGIT | EasyInputFilter.LETTER | EasyInputFilter.SPACE).build()
+                FilterAnnotation.DIGIT | FilterAnnotation.LETTER | FilterAnnotation.SPACE).build()
     });
   }
 }
