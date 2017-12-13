@@ -20,7 +20,6 @@ public class EasyInputFilter extends InputFilter.LengthFilter {
   private static final int DEFAULT_LENGTH = 8;
 
   private int filterType;
-
   private int letterType;
 
   private EasyInputFilter(int max, @FilterAnnotation.FilterType int filterType, @FilterAnnotation.LetterType int letterType) {
@@ -112,26 +111,21 @@ public class EasyInputFilter extends InputFilter.LengthFilter {
   public static final class Builder {
 
     private int filterLength = DEFAULT_LENGTH;
-
     private int filterType = DEFAULT;
-
     private int letterType = IGNORE;
 
     public Builder setMaxLength(int filterLength) {
       this.filterLength = filterLength;
-
       return this;
     }
 
     public Builder setFilterType(@FilterAnnotation.FilterType int filterType) {
       this.filterType = filterType;
-
       return this;
     }
 
     public Builder setLetterType(@FilterAnnotation.LetterType int letterType) {
       this.letterType = letterType;
-
       return this;
     }
 

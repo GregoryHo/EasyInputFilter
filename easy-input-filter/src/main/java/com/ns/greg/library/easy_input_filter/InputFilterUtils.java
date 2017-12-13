@@ -30,13 +30,11 @@ public class InputFilterUtils {
 
   static boolean isDigit(char c) {
     int code = (int) c;
-
     return '0' <= code && code <= '9';
   }
 
   static boolean isSpecificCharacter(char c) {
     int code = (int) c;
-
     // According to ascii table
     return (32 <= code && code <= 47) || (58 <= code && code <= 64
         || (91 <= code && code <= 96)
@@ -45,12 +43,10 @@ public class InputFilterUtils {
 
   static boolean isSpaceCharacter(char c) {
     int code = (int) c;
-
     return code == 32;
   }
 
   static boolean isAlphanumeric(char c) {
-
     return isLetter(c, IGNORE) || isDigit(c) || isSpecificCharacter(c);
   }
 
@@ -72,7 +68,6 @@ public class InputFilterUtils {
 
   public static boolean isChinese(char c) {
     Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-
     return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
         || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
         || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
