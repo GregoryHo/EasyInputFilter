@@ -1,18 +1,17 @@
 package com.ns.greg.library.easy_input_filter;
 
-import static com.ns.greg.library.easy_input_filter.FilterAnnotation.CAPITAL;
-import static com.ns.greg.library.easy_input_filter.FilterAnnotation.IGNORE;
-import static com.ns.greg.library.easy_input_filter.FilterAnnotation.LOWERCASE;
-
 /**
  * @author Gregory
  * @since 2017/5/4
  */
-public class InputFilterUtils {
+public class CharacterUtils {
 
-  static boolean isLetter(char c, @FilterAnnotation.LetterType int letterType) {
+  static final int IGNORE = 0;
+  static final int LOWERCASE = 1;
+  static final int CAPITAL = 2;
+
+  static boolean isLetter(char c, int letterType) {
     int code = (int) c;
-
     switch (letterType) {
       case IGNORE:
         return ('A' <= code && code <= 'Z') || ('a' <= code && code <= 'z');
@@ -48,22 +47,6 @@ public class InputFilterUtils {
 
   static boolean isAlphanumeric(char c) {
     return isLetter(c, IGNORE) || isDigit(c) || isSpecificCharacter(c);
-  }
-
-  public static int getType(char c) {
-    if (isLetter(c, IGNORE)) {
-      return FilterAnnotation.LETTER;
-    }
-
-    if (isDigit(c)) {
-      return FilterAnnotation.DIGIT;
-    }
-
-    if (isSpecificCharacter(c)) {
-      return FilterAnnotation.SPECIFIC_CHARACTER;
-    }
-
-    return 0x0F;
   }
 
   public static boolean isChinese(char c) {
