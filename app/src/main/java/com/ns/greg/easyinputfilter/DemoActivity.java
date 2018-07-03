@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
 import android.widget.EditText;
+import com.ns.greg.library.easy_input_filter.CharacterType;
 import com.ns.greg.library.easy_input_filter.EasyInputFilter;
-import com.ns.greg.library.easy_input_filter.FilterAnnotation;
 
 /**
  * @author Gregory
@@ -15,29 +15,31 @@ import com.ns.greg.library.easy_input_filter.FilterAnnotation;
 
 public class DemoActivity extends AppCompatActivity {
 
+  private static final char[] CUSTOM_ACCEPTOR_SET = "AaBbCc".toCharArray();
+  private static final char[] CUSTOM_FILTER_SET = new char[] {
+      34 /* " */, 39 /* ' */, 47 /* / */, 92 /* \ */
+  };
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.main_demo);
-
+    setContentView(R.layout.activity_demo);
     ((EditText) findViewById(R.id.digit_et)).setFilters(new InputFilter[] {
-        new EasyInputFilter.Builder().setMaxLength(10).setFilterType(FilterAnnotation.DIGIT).build()
+        new EasyInputFilter.Builder().setMaxLength(10).setAcceptorType(CharacterType.DIGIT).build()
     });
-
     ((EditText) findViewById(R.id.letter_lc_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(10)
-            .setFilterType(FilterAnnotation.LETTER)
-            .setLetterType(FilterAnnotation.LOWERCASE).build()
+            .setAcceptorType(CharacterType.LETTER_LOWERCASE).build()
     });
-
     ((EditText) findViewById(R.id.alphanumeric_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(20)
-            .setFilterType(FilterAnnotation.ALPHANUMERIC).build()
+            .setAcceptorType(CharacterType.ALPHANUMERIC).build()
     });
-
     ((EditText) findViewById(R.id.custom_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(20)
-            .setFilterType(
-                FilterAnnotation.DIGIT | FilterAnnotation.LETTER | FilterAnnotation.SPACE).build()
+            .setAcceptorType(CharacterType.CUSTOM)
+            .setCustomAcceptedCharacters(CUSTOM_ACCEPTOR_SET)
+            .setFilterType(CharacterType.CUSTOM)
+            .setCustomFilteredCharacters(CUSTOM_FILTER_SET).build()
     });
   }
 }
