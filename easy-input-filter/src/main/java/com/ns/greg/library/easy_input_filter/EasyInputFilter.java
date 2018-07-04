@@ -46,27 +46,32 @@ public class EasyInputFilter extends InputFilter.LengthFilter {
   @Override
   public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart,
       int dend) {
-    if (source instanceof SpannableStringBuilder) {
-      SpannableStringBuilder builder = (SpannableStringBuilder) source;
-      for (int i = end - 1; i >= start; i--) {
-        char c = source.charAt(i);
-        if (!accepted(c) || filtered(c)) {
-          builder.delete(i, i + 1);
-        }
-      }
+    CharSequence lengthSource = super.filter(source, start, end, dest, dstart, dend);
+     if (lengthSource == null) {
+       if (source instanceof SpannableStringBuilder) {
+         SpannableStringBuilder builder = (SpannableStringBuilder) source;
+         for (int i = end - 1; i >= start; i--) {
+           char c = source.charAt(i);
+           if (!accepted(c) || filtered(c)) {
+             builder.delete(i, i + 1);
+           }
+         }
 
-      return source;
-    } else {
-      StringBuilder builder = new StringBuilder();
-      for (int i = start; i < end; i++) {
-        char c = source.charAt(i);
-        if (accepted(c) && !filtered(c)) {
-          builder.append(c);
-        }
-      }
+         return source;
+       } else {
+         StringBuilder builder = new StringBuilder();
+         for (int i = start; i < end; i++) {
+           char c = source.charAt(i);
+           if (accepted(c) && !filtered(c)) {
+             builder.append(c);
+           }
+         }
 
-      return builder.toString();
-    }
+         return builder.toString();
+       }
+     }
+
+    return lengthSource;
   }
 
   private boolean accepted(char c) {
