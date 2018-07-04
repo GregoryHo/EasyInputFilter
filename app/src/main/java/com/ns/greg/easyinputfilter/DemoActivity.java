@@ -30,6 +30,11 @@ public class DemoActivity extends AppCompatActivity {
         new EasyInputFilter.Builder().setMaxLength(10)
             .setAcceptorType(CharacterType.LETTER_LOWERCASE).build()
     });
+    ((EditText) findViewById(R.id.letter_digit_et)).setFilters(new InputFilter[] {
+        new EasyInputFilter.Builder().setMaxLength(20)
+            .setAcceptorType(CharacterType.ALPHANUMERIC)
+            .setFilterType(CharacterType.SPECIAL_CHARACTER).build()
+    });
     ((EditText) findViewById(R.id.alphanumeric_et)).setFilters(new InputFilter[] {
         new EasyInputFilter.Builder().setMaxLength(20)
             .setAcceptorType(CharacterType.ALPHANUMERIC).build()

@@ -25,6 +25,15 @@
       />
 
   <EditText
+      android:id="@+id/letter_digit_et"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Letter and digit"
+      android:textColor="@android:color/black"
+      android:textSize="16sp"
+      />
+
+  <EditText
       android:id="@+id/alphanumeric_et"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -32,7 +41,6 @@
       android:textColor="@android:color/black"
       android:textSize="16sp"
       />
-
 
   <EditText
       android:id="@+id/custom_et"
